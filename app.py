@@ -5,7 +5,7 @@ import mysql.connector
 import mysql.connector.pooling
 from config import JWT_SECRET_KEY
 from config import DATABASES
-from user.user_dao import Userdao
+from user.user_dao import UserDao
 from user.user_service import UserService
 from user.user_view import UserView
 
@@ -41,7 +41,7 @@ def create_app(test_config=None):
     CORS(app)
 
     # DataModel layer
-    user_dao = Userdao(connection_pool)
+    user_dao = UserDao(connection_pool)
 
     # Service layer
     services = Services
