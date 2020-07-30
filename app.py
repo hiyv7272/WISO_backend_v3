@@ -8,7 +8,9 @@ from config import DATABASES
 from user.user_dao import UserDao
 from user.user_service import UserService
 from user.user_view import UserView
-
+from move.move_dao import MoveDao
+from move.move_service import MoveService
+from move.move_view import Moveview
 
 class Services:
     pass
@@ -42,12 +44,15 @@ def create_app(test_config=None):
 
     # DataModel layer
     user_dao = UserDao(connection_pool)
+    move_dao = MoveDao(connection_pool)
 
     # Service layer
     services = Services
     services.user_service = UserService(user_dao)
+    services.move_service = MoveService(move_dao)
 
     # Create endpoints
     UserView.create_endpoint(app, services)
+    Moveview.create_endpoint(app, services)
 
     return app
