@@ -32,12 +32,3 @@ class HouseCleaningView:
             housecleaning_service.house_cleaning_reserve_onetime(data)
 
             return jsonify({'message': 'SUCCESS'})
-
-        @app.route("/housecleaning/reserve", methods=['GET'])
-        @login_decorator
-        def house_cleaning_reserve_info():
-            data = dict()
-            data['user_id'] = g.user_info['id']
-            house_cleaning_reserve_list = housecleaning_service.house_cleaning_reserve_info(data)
-
-            return jsonify({'move_orders': house_cleaning_reserve_list})
