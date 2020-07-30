@@ -1,4 +1,4 @@
-## WISO (MISO Clone)
+## WISO-Project (MISO Clone)
 - Two-week Clone Project for WeCode 5th Class of Coding
 - Developed by a team of 5 developers (3 Front-End, 2 Back-End)
 [Front-End GitHub Repository](https://github.com/wecode-bootcamp-korea/WISO_frontend)
