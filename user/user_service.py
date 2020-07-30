@@ -1,4 +1,4 @@
-from flask import request, jsonify, current_app, abort
+from flask import current_app, abort
 from datetime import datetime, timedelta
 
 import bcrypt
@@ -52,16 +52,13 @@ class UserService:
             validate.check_email(data)
 
             user_info = self.user_dao.select_user(data)
+            if not user_info:
+                data['password'] = bcrypt.hashpw(data['password'].encode('UTF-8'), bcrypt.gensalt()).decode()
 
-            if user_info['email'] == data['email']:
-                return abort(400, description='DUPLICATE_EMAIL')
-
-            data['password'] = bcrypt.hashpw(data['password'].encode('UTF-8'), bcrypt.gensalt()).decode()
-
-            insert_new_user = self.user_dao.insert_user(data)
+                insert_new_user = self.user_dao.insert_user(data)
 
             return insert_new_user
-
+        
         except KeyError:
             abort(400, description="INVALID_KEY")
 
