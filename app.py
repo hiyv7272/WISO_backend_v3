@@ -60,6 +60,6 @@ def create_app(test_config=None):
     # Create endpoints
     UserView.create_endpoint(app, services)
     Moveview.create_endpoint(app, services)
-    HouseCleaningView.create_endpoint((app, services))
+    HouseCleaningView.create_endpoint(app, services)
 
     return app
