@@ -7,9 +7,9 @@ class MoveService:
 
     def move_reserve(self, data):
         try:
-            insert_new_user = self.move_dao.insert_move_reservation(data)
+            insert_new_reserve = self.move_dao.insert_move_reservation(data)
 
-            return insert_new_user
+            return insert_new_reserve
 
         except KeyError:
             abort(400, description="INVALID_KEY")
