@@ -11,6 +11,10 @@ from user.user_view import UserView
 from move.move_dao import MoveDao
 from move.move_service import MoveService
 from move.move_view import Moveview
+from housecleaning.housecleaning_dao import HouseCleaningDao
+from housecleaning.housecleaning_service import HouseCleaningService
+from housecleaning.housecleaning_view import HouseCleaningView
+
 
 class Services:
     pass
@@ -45,14 +49,17 @@ def create_app(test_config=None):
     # DataModel layer
     user_dao = UserDao(connection_pool)
     move_dao = MoveDao(connection_pool)
+    housecleaning_dao = HouseCleaningDao(connection_pool)
 
     # Service layer
     services = Services
     services.user_service = UserService(user_dao)
     services.move_service = MoveService(move_dao)
+    services.housecleaning_service = HouseCleaningService(housecleaning_dao)
 
     # Create endpoints
     UserView.create_endpoint(app, services)
     Moveview.create_endpoint(app, services)
+    HouseCleaningView.create_endpoint((app, services))
 
     return app
