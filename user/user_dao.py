@@ -20,14 +20,14 @@ class UserDao:
             user_data['regist_datetime'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             user_data['update_datetime'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-            insert_user_data = ("""
+            insert_user_query = ("""
                                 INSERT INTO USER (
                                 email, name, password, mobile_number, regist_datetime, update_datetime
                                 ) VALUES (
                                 %(email)s, %(name)s, %(password)s, %(mobile_number)s, %(regist_datetime)s, %(update_datetime)s
                                 )""")
 
-            db_cursor.execute(insert_user_data, user_data)
+            db_cursor.execute(insert_user_query, user_data)
 
             self.db_connection.commit()
             db_cursor.close()
@@ -44,21 +44,29 @@ class UserDao:
         try:
             db_cursor = self.db_connection.cursor(buffered=True, dictionary=True)
 
-            user_data = dict()
-            user_data['email'] = data['email']
-
-            select_user_data = ("""
-                                SELECT id, email, password
+            select_user_query = ("""
+                                SELECT id, name, email, password, mobile_number
                                 FROM USER
-                                WHERE email = %(email)s
+                                WHERE 1=1
                                 """)
 
-            db_cursor.execute(select_user_data, user_data)
+            if 'email' in data:
+                email = "\'" + str(data['email']) + "\'"
+                select_user_query += f' AND email = {email}'
+
+            if 'id' in data:
+                id = "\'" + str(data['id']) + "\'"
+                select_user_query += f' AND id = {id}'
+
+            db_cursor.execute(select_user_query, data)
+
             user_info = dict()
             for row in db_cursor:
                 user_info['id'] = row['id']
                 user_info['email'] = row['email']
+                user_info['name'] = row['name']
                 user_info['password'] = row['password']
+                user_info['mobile_number'] = row['mobile_number']
 
             self.db_connection.commit()
             db_cursor.close()

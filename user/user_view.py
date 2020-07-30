@@ -1,4 +1,5 @@
-from flask import request, jsonify, json, abort, Response
+from flask import request, jsonify, g
+from utils.utils import login_decorator
 
 
 class UserView:
@@ -32,12 +33,16 @@ class UserView:
 
         @app.route("/user/signin", methods=['POST'])
         def sign_in():
-            try:
-                data = request.json
-                user_info = user_service.signin(data)
-                token = user_service.generate_access_token(user_info)
+            data = request.json
+            user_info = user_service.signin(data)
+            token = user_service.generate_access_token(user_info)
 
-                return jsonify({'access_token': token})
+            return jsonify({'access_token': token})
 
-            except:
-                abort(401, description='http_401_unauthorized')
+        @app.route('/user/profile', methods=['GET'])
+        @login_decorator
+        def user_profile():
+            print(g.user_info)
+            user_info = user_service.user_profile(g.user_info)
+
+            return jsonify({'user_profile': user_info})

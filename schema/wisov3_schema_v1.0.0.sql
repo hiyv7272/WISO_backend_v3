@@ -26,8 +26,7 @@ CREATE TABLE WISOv3.`USER`
   `update_datetime` datetime(6) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `USR_KAKAO_ID` (`kakao_token`),
-  UNIQUE KEY `USR_EMAIL` (`email`),
-  UNIQUE KEY `USR_MOBILE_NUMBER` (`mobile_number`)
+  UNIQUE KEY `USR_EMAIL` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 COMMIT;
 
