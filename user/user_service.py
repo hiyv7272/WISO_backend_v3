@@ -1,4 +1,4 @@
-from flask import request, jsonify, current_app, g, abort
+from flask import request, jsonify, current_app, abort
 from datetime import datetime, timedelta
 
 import bcrypt

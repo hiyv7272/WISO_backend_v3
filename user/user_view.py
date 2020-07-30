@@ -42,7 +42,6 @@ class UserView:
         @app.route('/user/profile', methods=['GET'])
         @login_decorator
         def user_profile():
-            print(g.user_info)
             user_info = user_service.user_profile(g.user_info)
 
             return jsonify({'user_profile': user_info})
