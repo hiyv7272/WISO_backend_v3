@@ -10,7 +10,7 @@ Flask-Cors==3.0.8
 Flask-Script==2.0.6
 flask-swagger-ui==3.20.9
 itsdangerous==1.1.0
-Jinja2==2.11.0
+Jinja2==2.11.3
 MarkupSafe==1.1.1
 mysql-connector-python==8.0.19
 Pillow==7.0.0
